@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BooksKY</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background-color: bisque;
+        }
+
+        .navbar {
+            background-color: rgb(78, 155, 78);
+            padding: 10px;
+            color: azure;
+        }
+
+        .container {
+            padding: 10px;
+
+        }
+
+        .bookcontainer {
+            padding: 15px;
+            width: 25%;
+            background-color: rgb(78, 155, 78);
+            border-radius: 10px;
+            color: white;
+            margin: 20px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .bookcontainer h2 {
+            color: black;
+        }
+
+        .bookcontainer button {
+            background-color: black;
+            border: none;
+            border-radius: 5px;
+            color: azure;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            font-style: normal;
+            padding-bottom: 2.5px;
+            padding-top: 2.5px;
+            padding-left: 7px;
+            padding-right: 7px;
+            margin-top: 12px;
+        }
+
+        .add-button {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            border-radius: 100%;
+            background-color: rgb(78, 155, 78);
+            color: whitesmoke;
+            font-size: 39px;
+            border: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+        }
+
+        .popup-overlay {
+            position: absolute;
+            background-color: black;
+            opacity: 0.6273;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+
+        }
+
+        .popup-box {
+            background-color: rgb(78, 155, 78);
+            width: 40%;
+            padding: 39px;
+            border-radius: 10px;
+            position: absolute;
+            top: 29%;
+            left: 29%;
+            z-index: 2;
+            text-align: center;
+            display: none;
+
+        }
+
+        .popup-box input {
+            background: transparent;
+            border: none;
+            width: 100%;
+            margin: 5px;
+            padding: 5px;
+            font-size: 21px;
+            border-bottom: solid black 2px;
+
+        }
+
+        .popup-box textarea {
+            background: transparent;
+            border: none;
+            width: 100%;
+            margin: 5px;
+            padding: 5px;
+            font-size: 21px;
+            border: solid black 2px;
+        }
+
+        .popup-box form button {
+            background-color: black;
+            border: none;
+            border-radius: 5px;
+            color: azure;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            font-style: normal;
+            padding-bottom: 2.5px;
+            padding-top: 2.5px;
+            padding-left: 7px;
+            padding-right: 7px;
+            margin-top: 12px;
+        }
+
+        .popup-box input::placeholder,
+        textarea::placeholder {
+            color: white
+        }
+
+        .popup-box input:focus,
+        textarea:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>BooksKY</h1>
+    </div>
+
+    <div class="container">
+        <div class="bookcontainer">
+            <h2>Rich Dad Poor Dad</h2>
+            <h5>Author's Name</h5>
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa praesentium eaque velit, amet nihil
+                nesciunt facere corporis. Nesciunt incidunt, possimus laborum quasi veritatis voluptas aspernatur hic
+                soluta ullam optio facilis.
+            </p>
+            <button onclick="deletebook(event)">Delete</button>
+        </div>
+    </div>
+
+    <div class="popup-overlay">
+
+    </div>
+
+    <div class="popup-box">
+        <h2>Add Book</h2>
+        <form>
+            <input type="text" placeholder="Book Title" id="book-title-input">
+            <input type="text" placeholder="Book Author" id="book-author-input">
+            <textarea placeholder="Short Description" id="book-description-input"></textarea>
+            <button id="add">Add</button>
+            <button id="cancel">Cancel</button>
+        </form>
+    </div>
+
+    <button class="add-button" id="add-popup-button">+</button>
+
+    <script>
+        var popupoverlay = document.querySelector(".popup-overlay")
+        var popupbox = document.querySelector(".popup-box")
+        var addpopupbutton = document.getElementById("add-popup-button")
+
+        addpopupbutton.addEventListener("click", function () {
+            popupoverlay.style.display = "block"
+            popupbox.style.display = "block"
+        })
+
+        var cancelbtn = document.getElementById("cancel")
+
+        cancelbtn.addEventListener("click", function () {
+            event.preventDefault()
+            popupoverlay.style.display = "none"
+            popupbox.style.display = "none"
+
+        })
+
+        var container = document.querySelector(".container")
+        var addbook = document.getElementById("add")
+        var booktitleinput = document.getElementById("book-title-input")
+        var bookauhtorinput = document.getElementById("book-author-input")
+        var bookdescinput = document.getElementById("book-description-input")
+
+        addbook.addEventListener("click", function (event) {
+            event.preventDefault()
+            var div = document.createElement("div")
+            div.setAttribute("class", "bookcontainer")
+            div.innerHTML = `  <h2>${booktitleinput.value}</h2>
+            <h5>${bookauhtorinput.value}</h5>
+            <p>${bookdescinput.value}</p>
+            <button onclick="deletebook(event)">Delete</button>`
+            container.append(div)
+            popupoverlay.style.display = "none"
+            popupbox.style.display = "none"
+
+        })
+
+        function deletebook(event) {
+            event.target.parentElement.remove()
+        }
+    </script>
+</body>
+
+</html>
