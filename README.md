@@ -1,1 +1,2 @@
-This is just me learning python 
+This is just me learning something
+
